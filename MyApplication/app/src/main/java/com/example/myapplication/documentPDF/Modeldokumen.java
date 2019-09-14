@@ -8,7 +8,7 @@ import com.google.gson.annotations.SerializedName;
  * @author ayubkukuh <ayubkukuhprasetyo434@gmail.com>
  * @since 1.0
  */
-public class Modelstatusdetailtiappeserta {
+public class Modeldokumen {
 
     @Expose
     @SerializedName("ButtonStatusPembayaran")

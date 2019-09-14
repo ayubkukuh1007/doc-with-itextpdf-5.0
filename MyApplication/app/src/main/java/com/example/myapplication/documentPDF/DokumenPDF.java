@@ -1,7 +1,6 @@
 package com.example.myapplication.documentPDF;
 
 import android.content.ActivityNotFoundException;
-import android.content.Intent;
 import android.os.Environment;
 import android.util.Log;
 import com.itextpdf.text.BaseColor;
@@ -40,10 +39,10 @@ public class DokumenPDF {
         formatRupiah = NumberFormat.getCurrencyInstance(localeID);
     }
 
-    public void createdokumenPDF (Modelstatusdetailtiappeserta.DatapaketEntity datapaket,
-                                  Modelstatusdetailtiappeserta.DatapesertastatusOpenEntity open,
-                                  Modelstatusdetailtiappeserta.StatusDokumenEntity dokumen,
-                                  Modelstatusdetailtiappeserta.StatusPembayaranEntity pembayaran,
+    public void createdokumenPDF (Modeldokumen.DatapaketEntity datapaket,
+                                  Modeldokumen.DatapesertastatusOpenEntity open,
+                                  Modeldokumen.StatusDokumenEntity dokumen,
+                                  Modeldokumen.StatusPembayaranEntity pembayaran,
                                   String buttonStatusdatapeserta,
                                   String buttonStatusDokument,
                                   String buttonStatusPembayaran) {
@@ -171,8 +170,8 @@ public class DokumenPDF {
             document.add(new Chunk(lineSeparator));
             document.add(new Paragraph(""));
 
-            //R = untuk untuk membuat tipe checkbox
-            //o = untuk membuat tipe uncheckbox
+            //R = untuk untuk membuat bentuk checkbox
+            //o = untuk membuat bentuk uncheckbox
             //buat objeck table
             PdfPTable table = new PdfPTable(4); // 4 columns.
 
@@ -295,24 +294,10 @@ public class DokumenPDF {
 
             //totalbayar
             Chunk totalbayarchunk = new Chunk(new VerticalPositionMark());
-            Paragraph totalbayarparagraf = new Paragraph(formatRupiah.format(pembayaran.getTotal() - pembayaran.getSisa()),fontnormal);
+            Paragraph totalbayarparagraf = new Paragraph("Total Bayar",fontnormal);
             totalbayarparagraf.add(new Chunk(totalbayarchunk));
-            totalbayarparagraf.add("");
+            totalbayarparagraf.add(formatRupiah.format(pembayaran.getTotal() - pembayaran.getSisa()));
             document.add(totalbayarparagraf);
-
-            //jenis pembayaran
-            Chunk jenispembayaranchunk = new Chunk(new VerticalPositionMark());
-            Paragraph jenispembayarannparagraf = new Paragraph(pembayaran.getJenispembayaran(),fontnormal);
-            jenispembayarannparagraf.add(new Chunk(jenispembayaranchunk));
-            jenispembayarannparagraf.add("");
-            document.add(jenispembayarannparagraf);
-
-            //penerima
-            Chunk penerimachunk = new Chunk(new VerticalPositionMark());
-            Paragraph penerimaparagraf = new Paragraph(pembayaran.getPenerima(),fontnormal);
-            penerimaparagraf.add(new Chunk(penerimachunk));
-            penerimaparagraf.add("");
-            document.add(penerimaparagraf);
 
             //close dokument
             document.close();
